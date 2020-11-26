@@ -35,7 +35,6 @@ exports.adminRules = async function getRestrictions(connection){
     })
 }
 
-
 exports.loginUser = async function getUser(connection, req){  
     let sql = `Select * from REGISTER where email = '${req.body.email}'`;
     return await new Promise( (resolve,reject) => {
@@ -48,6 +47,13 @@ exports.loginUser = async function getUser(connection, req){
         if (results.length > 0){
             var loginDetails = {'saltKey': results[0].salt};
             loginDetails.encryptedPass = results[0].encryptedPass;
+            loginDetails.fName = results[0].fname;
+            loginDetails.lName = results[0].lname;
+            loginDetails.email = results[0].email;
+            loginDetails.role = results[0].role;
+            loginDetails.isActive = results[0].isActive;
+            loginDetails.securityQuestion = results[0].securityQuestion;
+            loginDetails.securityAnswer = results[0].securityAnswer;
             resolve(loginDetails);
         } else {
             reject(err);
