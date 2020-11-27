@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/png" href="images/cricket.ico"/>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+</head>
+
+<body style="background-image: url('../images/eden.jpg');">
+
+
+<div class="main">
+    <div class="login-head">
+
+        <br/>
+    </div>
+    <div class="wrap">
+        <div class="Regisration">
+            <div class="Regisration-head">
+                <h2><span></span>Get In</h2>
+            </div>
+
+            <% if(typeof alert != 'undefined') { %>
+                <br/>
+                <% alert.forEach(function(error) { %>
+                    <div style="color:red;" role="alert">
+                        <%= error.msg %>
+                    </div>
+                <% }) %>
+            <% } %>
+
+            <form action="/registerSave" method="POST">
+                <input type="text" name="fname" value="First Name" onfocus="this.value = '';"
+                       onblur="if (this.value == '') {this.value = 'First Name';}">
+                <input type="text" name="lname" value="Last Name" onfocus="this.value = '';"
+                       onblur="if (this.value == '') {this.value = 'Last Name';}">
+                <input type="text" name="email" value="Email Address" onfocus="this.value = '';"
+                       onblur="if (this.value == '') {this.value = 'Email Address';}">
+                <input type="text" name="cemail" value="Confirm Email Address" onfocus="this.value = '';"
+                       onblur="if (this.value == '') {this.value = 'Confirm Email Address';}">
+                <input type="password" name="password" placeholder="Password" value="Password"
+                       onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
+                <input type="password" name="cpassword" placeholder="Confirm Password" value="Confirm Password"
+                       onfocus="this.value = '';" onblur="if (this.value == '') {this.value = ' Confirm Password';}">
+
+                <select name="country" type="text" style="width: 80%;">
+                    <option>--- Select Country ---</option>
+                    <option>India</option>
+                    <option>United States</option>
+                    <option>England</option>
+                    <option>UAE</option>
+                    <option>Other</option>
+                </select>
+
+                <select name="favTeam" type="text" style="width: 80%;">
+                    <option>--- Select Favourite Team ---</option>
+                    <option>CSK</option>
+                    <option>DC</option>
+                    <option>KKR</option>
+                    <option>KXIP</option>
+                    <option>MI</option>
+                    <option>RCB</option>
+                    <option>RR</option>
+                    <option>MEHHH</option>
+                </select>
+
+				<input type="text" name="team" value="Favourite Team" onfocus="this.value = '';"
+					   onblur="if (this.value == '') {this.value = 'Favourite Team';}">
+
+                <select name="question" style="width: 80%;">
+                    <option>--- Select Security Question ---</option>
+                    <option>What is your best friend name?</option>
+                    <option>Who is your favourite Cricketer</option>
+                    <option>What is the name of your first pet?</option>
+                </select>
+
+
+                <input type="password" name="securityAnswer" placeholder="Security Answer" value="Security Answer"
+                       onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Security Answer';}">
+
+
+                <input type="text" name="phoneNumber" value="Mobile Number" onfocus="this.value = '';"
+                       onblur="if (this.value == '') {this.value = 'Mobile Number';}">
+                <input type="text" name="role" value="member" hidden="true">
+
+                <input type="password" name="secretKey" placeholder="Secret Key" value="Secret Key"
+                       onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Secret Key';}">
+                <select name="preference" style="width: 80%;">
+                    <option>--- Select Payment Preference ---</option>
+                    <option>GPAY</option>
+                    <option>Phone Pay</option>
+                    <option>Account Transfer</option>
+                    <option>CASH APP - US</option>
+                    <option>ZELLE - US</option>
+                </select>
+                <div class="Remember-me">
+                    <div class="p-container">
+
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="submit">
+                        <input type="submit" value="Sign Me Up">
+                    </div>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div class="copy-right">
+        <br/><br/><br/>
+        <p style="color:#A9AAAC;"> &copy; 2021 All rights reserved @ Vamsi Singamaneni</p>
+    </div>
+</div>
+</div>
+</body>
+</html>
+
+
+
+

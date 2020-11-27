@@ -23,7 +23,8 @@ app.use(cookieParser());
 app.use(session({
   secret: 'AKe5OCBbfC',
   resave: true,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: { secure: true }
 }));
 
 // dev config
@@ -79,9 +80,25 @@ app.post('/updatePass', userSession.updatePassword);
 
 
 // Schedule routes
-app.get('/schedule', schedule.view);
+app.get('/schedule', schedule.schedule);
+app.get('/dashboard', schedule.dashboard);
+app.get('/setcookie', schedule.setCookie);
+app.get('/getcookie', schedule.getCookie);
+app.get('/logout', schedule.removeCookie);
 
 
+app.get('/users',(req, res) => {
+    //res.send('Hello There');
+    let sql = "SELECT * FROM users";
+    let query = connection.query(sql, (err, rows) => {
+        if(err) throw err;
+        res.render('schedule/user_index_nav', {
+            title : 'DB Operations',
+            users : rows,
+            team : 'RR'
+        });
+    });
+});
 
 
 app.get('/',(req, res) => {
@@ -145,7 +162,11 @@ app.get('/delete/:userId',(req, res) => {
 });
 
 
+app.get('*',function (req, res) {
+    res.redirect('/');
+});
+
 // Server Listening
-app.listen(8080, () => {
+app.listen(8081, () => {
     console.log('Server is running at port 8080');
 });

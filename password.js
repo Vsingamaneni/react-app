@@ -47,6 +47,7 @@ exports.loginUser = async function getUser(connection, req){
         if (results.length > 0){
             var loginDetails = {'saltKey': results[0].salt};
             loginDetails.encryptedPass = results[0].encryptedPass;
+            loginDetails.memberId = results[0].memberId;
             loginDetails.fName = results[0].fname;
             loginDetails.lName = results[0].lname;
             loginDetails.email = results[0].email;
@@ -54,6 +55,7 @@ exports.loginUser = async function getUser(connection, req){
             loginDetails.isActive = results[0].isActive;
             loginDetails.securityQuestion = results[0].securityQuestion;
             loginDetails.securityAnswer = results[0].securityAnswer;
+            loginDetails.team = results[0].selectedTeam;
             resolve(loginDetails);
         } else {
             reject(err);
