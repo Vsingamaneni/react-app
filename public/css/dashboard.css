@@ -1,0 +1,28 @@
+.shadowbox {
+    width: 60%;
+    border: 1px solid #333;
+    box-shadow: 8px 8px 5px #444;
+    padding: 8px 12px;
+    background-image: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
+}
+
+.left {
+    position: absolute;
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #333;
+    box-shadow: 8px 8px 5px #444;
+    background-image: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
+}
+
+.right {
+    position: absolute;
+    right: 0px;
+    width: 50%;
+    border: 3px solid #73AD21;
+    padding: 10px;
+    border: 1px solid #333;
+    box-shadow: 8px 8px 5px #444;
+    padding: 8px 12px;
+    background-image: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
+}

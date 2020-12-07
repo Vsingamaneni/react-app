@@ -27,19 +27,6 @@ const connection=mysql.createConnection({
     database:'react'
 });
 
-function requireLogin(req, res, next) {
-    if (req.cookies.loginDetails) {
-        var loginDetails = JSON.parse(req.cookies.loginDetails);
-        if (loginDetails.email) {
-            return res.send(loginDetails.memberId + ", " +loginDetails.email + ", " + loginDetails.fName+ ", " + loginDetails.lName);
-        }
-        next();
-    } else {
-        res.redirect('/login');
-    }
-};
-
-
 exports.login = app.get('/login', function(req, res){
     if (req.cookies.loginDetails) {
         res.redirect('/dashboard');
@@ -177,18 +164,16 @@ exports.userLogin = app.post('/userLogin', urlencodedParser, [
             'email': loginDetails.email,
             'role': loginDetails.role,
             'memberId': loginDetails.memberId,
-            'team': loginDetails.selectedTeam
+            'team': loginDetails.team
         });
 
-        res.cookie('loginDetails', login, {maxAge: 60 * 60 * 24 * 30, httpOnly: true});
-        /*res.render('schedule/test', {
-            team : loginDetails.team
-        });*/
+        // res.cookie('loginDetails', login, {maxAge: 60 * 60 * 24 * 30, httpOnly: true});
+        res.cookie('loginDetails', login, {expires: new Date(Date.now() + 1 * 60000), httpOnly: true});
 
-        res.render('schedule/user_index_nav', {
-            title : 'DB Operations',
-            team : loginDetails.team
-        });
+        // set to 30 days
+        //res.cookie('loginDetails', login, {expires: new Date(Date.now() + 720 * 3600000), httpOnly: true});
+
+        res.redirect('/dashboard');
     }
 });
 

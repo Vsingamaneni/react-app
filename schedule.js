@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
+var utils = require('./util/ScheduleUtil');
 
 const urlencodedParser = bodyParser.urlencoded({extended: false})
 const {check, validationResult} = require('express-validator')
@@ -39,9 +40,22 @@ function requireLogin(req, res, next) {
 
 };
 
-exports.dashboard = app.get('/dashboard', requireLogin, function (req, res) {
-    res.render('schedule/schedule', {
-        title: 'Dashboard available'
+exports.dashboard = app.get('/dashboard', async (req, res) => {
+    if (req.cookies.loginDetails) {
+        var loginDetails = JSON.parse(req.cookies.loginDetails);
+
+        var schedule = await utils.matchDetails(connection);
+
+        res.render('schedule/dashboard', {
+            title: 'Dashboard',
+            team: loginDetails.team,
+            dashboard: schedule[0],
+            dashboard1: schedule[1]
+        });
+    }
+
+    res.render('register/login', {
+        title: 'Scoreboard'
     });
 });
 
@@ -71,7 +85,7 @@ exports.getCookie = app.get('/getcookie', function (req, res) {
     if (req.cookies.loginDetails) {
         var loginDetails = JSON.parse(req.cookies.loginDetails);
         if (loginDetails.email) {
-            return res.send(loginDetails.memberId + ", " + loginDetails.email + ", " + loginDetails.fName + ", " + loginDetails.lName);
+            return res.send(loginDetails.memberId + ", " + loginDetails.email + ", " + loginDetails.fName + ", " + loginDetails.lName + ", " + loginDetails.team);
         }
     }
 
@@ -83,8 +97,7 @@ exports.removeCookie = app.get('/logout', function (req, res) {
 
     var username = req.cookies['loginDetails'];
     if (username) {
-        res.redirect('/login');
+        req.cookies['loginDetails'] = null;
     }
-
-    return res.send('No cookie found');
+    res.redirect('/login');
 });
