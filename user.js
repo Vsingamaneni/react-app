@@ -150,13 +150,11 @@ exports.userLogin = app.post('/userLogin', urlencodedParser, [
 ], (req, res)=> {
     const errors = validationResult(req)
     if(!errors.isEmpty()) {
-        // return res.status(422).jsonp(errors.array())
         const alert = errors.array()
         res.render('register/login', {
             alert
         })
     } else {
-        //res.redirect('/users');
         var loginDetails = req.session.loginDetails;
         var login = JSON.stringify({
             'fName': loginDetails.fName,
@@ -168,7 +166,7 @@ exports.userLogin = app.post('/userLogin', urlencodedParser, [
         });
 
         // res.cookie('loginDetails', login, {maxAge: 60 * 60 * 24 * 30, httpOnly: true});
-        res.cookie('loginDetails', login, {expires: new Date(Date.now() + 1 * 60000), httpOnly: true});
+        res.cookie('loginDetails', login, {expires: new Date(Date.now() + 100 * 60000), httpOnly: true});
 
         // set to 30 days
         //res.cookie('loginDetails', login, {expires: new Date(Date.now() + 720 * 3600000), httpOnly: true});

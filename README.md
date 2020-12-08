@@ -1,6 +1,6 @@
 
 --------------------------------------------------------------------------
-|             CRUD Operation using NodeJS / ExpressJS / MySQL            |
+|             React App using NodeJS / ExpressJS / MySQL            |
 --------------------------------------------------------------------------
 
 Step 1 : install nodejs in your system and run follwoing comment 
@@ -35,7 +35,7 @@ Step 4 : Create Database Connection
 			  host:'localhost',
 			  user:'root',
 			  password:'',
-			  database:'node_crud'
+			  database:'react'
 			});
 			
 			connection.connect(function(error){
@@ -58,7 +58,7 @@ Setp 6 : Define index path with '/' and HTML file
 			//route for user index page
 			app.get('/',(req, res) => {
 				res.render('user_index', {
-					title: 'CRUD Operation using NodeJS / ExpressJS / MySQL '
+					title: 'React App using NodeJS / ExpressJS / MySQL '
 				});
 			});
 
@@ -66,6 +66,6 @@ Setp 7 : Run a server and check with Browser
 
 			npm start (OR) nodemon app
 
-			http://localhost:3000/
+			http://localhost:8080/
 			
 Step 8 : Get value from database and show in HTML table using ExpressJS / MySQL

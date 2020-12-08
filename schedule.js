@@ -27,19 +27,6 @@ const connection = mysql.createConnection({
     database: 'react'
 });
 
-function requireLogin(req, res, next) {
-    if (req.cookies && req.cookies.loginDetails) {
-        var loginDetails = JSON.parse(req.cookies.loginDetails);
-        if (loginDetails.email) {
-            return res.send(loginDetails.memberId + ", " + loginDetails.email + ", " + loginDetails.fName + ", " + loginDetails.lName);
-        }
-        next();
-    } else {
-        res.redirect('/login');
-    }
-
-};
-
 exports.dashboard = app.get('/dashboard', async (req, res) => {
     if (req.cookies.loginDetails) {
         var loginDetails = JSON.parse(req.cookies.loginDetails);
@@ -49,6 +36,7 @@ exports.dashboard = app.get('/dashboard', async (req, res) => {
         res.render('schedule/dashboard', {
             title: 'Dashboard',
             team: loginDetails.team,
+            fname: loginDetails.fName,
             dashboard: schedule[0],
             dashboard1: schedule[1]
         });
@@ -59,13 +47,25 @@ exports.dashboard = app.get('/dashboard', async (req, res) => {
     });
 });
 
-exports.schedule = app.get('/schedule', requireLogin, function (req, res) {
-    if (!req.session.user) {
-        res.redirect('/login');
-    } else {
+exports.schedule = app.get('/schedule', async (req, res) => {
+    try{
+    if (req.cookies.loginDetails) {
+        var loginDetails = JSON.parse(req.cookies.loginDetails);
+
+        var schedule = await utils.matchDetails(connection);
+
         res.render('schedule/schedule', {
-            title: 'Viewing Schedule '
+            title: 'Schedule ',
+            team: loginDetails.team,
+            fname: loginDetails.fName,
+            schedule: schedule
         });
+
+    } else {
+        res.redirect('/login');
+    } } catch (e) {
+        console.log('error processing schedule', e);
+        res.redirect('/login');
     }
 });
 
